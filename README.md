@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -72,3 +73,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 React Fundamentals
 lalalalalal
 >>>>>>> 85da579139357162dcbdaf0a930a5a02a435e9d6
+=======
+# React-Fundamentals
+>>>>>>> e8a7f4f99e148505d15dd5414153419b8f05e171
