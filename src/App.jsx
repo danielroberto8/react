@@ -6,6 +6,9 @@ import Crazy from "./views/components/crazyRich.png"
 import Brave from "./views/components/brave.png"
 import Educated from "./views/components/educated.png"
 import ProductData from "./views/screen/ProductData";
+import CounterScreen from "./views/screen/CounterScreen"
+import InputScreen from "./views/screen/InputScreen";
+import AuthScreen from "./views/screen/AuthScreen";
 
 function App() {
   // let arrProduct = [
@@ -75,12 +78,12 @@ function App() {
     },
   ];
 
-  const renderBooks = () =>{
-    return arrBooks.map((val)=>{
-      return <ProductData productData={val} />;
-    });
-  }
-  return <div className="App row container p-5">{renderBooks()}</div>;
+  // const renderBooks = () =>{
+  //   return arrBooks.map((val)=>{
+  //     return <ProductData productData={val} />;
+  //   });
+  // }
+  return <AuthScreen/>;
 }
 
 export default App;
