@@ -3,12 +3,13 @@ import React from "react";
 class AuthScreen extends React.Component {
   state = {
     user: [
-      ["abi", "umi"],
-      ["James", "1234"],
+      {username : "abi", password : "umi"},
+      {username : "James", password : "1234"},
     ],
     username: "",
     password: "",
     passwordConfirm: "",
+    activeEditIndex: "x"
   };
 
   render() {
@@ -26,7 +27,7 @@ class AuthScreen extends React.Component {
 
     const checkUser = (newUser) => {
       for (let i = 0; i < this.state.user.length; i++) {
-        if (newUser == this.state.user[i][0]) {
+        if (newUser == this.state.user.username) {
           return false;
         }
       }
@@ -45,7 +46,7 @@ class AuthScreen extends React.Component {
       }
 
       arrNewUser = this.state.user.slice();
-      arrNewUser.push([this.state.username, this.state.password]);
+      arrNewUser.push({username : this.state.username, password : this.state.password});
       this.setState({ user: arrNewUser });
       clearInput();
       alert("Registrasi Berhasil");
@@ -70,12 +71,65 @@ class AuthScreen extends React.Component {
       this.refs.username.value = "";
       this.refs.password.value = "";
       this.refs.passwordConfirm.value = "";
-      this.refs.usernameLogin.value = "";
-      this.refs.passwordLogin.value = "";
+      // this.refs.usernameLogin.value = "";
+      // this.refs.passwordLogin.value = "";
       this.setState({ username: "" });
       this.setState({ password: "" });
       this.setState({ passwordConfirm: "" });
     };
+
+    const renderTable = () => {
+      return this.state.user.map((val, idx) => {
+        
+        const btnType = (num) =>{
+          if(num%2==0){
+            return "btn btn-danger"
+          }else{
+            return "btn btn-warning"
+          }
+        }
+
+        const updateUser = (num) =>{
+          if(this.state.activeEditIndex==num){
+            return(
+              <td>
+                <input className="form-handler" type="text" placeholder={val.username}></input>
+              </td>
+            )
+          }else{
+            return(
+              <td>
+                {val.username}
+              </td>
+            )
+          }
+        }
+        
+        return (
+          <tr>
+            <td>{idx + 1}</td>
+            {updateUser(idx)}
+            <td>
+              <input className="btn btn-success" type="button" value="edit" onClick={()=>{this.setState({activeEditIndex : idx})}}></input>
+            </td>
+            <td>
+              <input
+                className={btnType(idx)}
+                type="button"
+                value="Delete"
+                onClick={()=>{deleteHandler(idx)}}
+              ></input>
+            </td>
+          </tr>
+        );
+      });
+    };
+
+    const deleteHandler = (idx) =>{
+      let temp = [...this.state.user]
+      temp.splice(idx,1)
+      this.setState({user : [...temp]})
+    }
 
     return (
       <div>
@@ -135,7 +189,7 @@ class AuthScreen extends React.Component {
             padding: "10px",
           }}
         >
-          <div>Login</div>
+          {/* <div>Login</div>
           <div></div>
           <div className="form-group">
             <input
@@ -162,7 +216,17 @@ class AuthScreen extends React.Component {
               value="Login"
               onClick={login}
             />
-          </div>
+          </div> */}
+          <table className="table">
+          <thead>
+            <th>No</th>
+            <th>Username</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            {renderTable()}
+          </tbody>
+          </table>
         </div>
       </div>
     );

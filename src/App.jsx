@@ -9,6 +9,7 @@ import ProductData from "./views/screen/ProductData";
 import CounterScreen from "./views/screen/CounterScreen"
 import InputScreen from "./views/screen/InputScreen";
 import AuthScreen from "./views/screen/AuthScreen";
+import LifeCycleScreen from "./views/screen/LifecycleScreen";
 
 function App() {
   // let arrProduct = [
@@ -83,7 +84,11 @@ function App() {
   //     return <ProductData productData={val} />;
   //   });
   // }
-  return <AuthScreen/>;
+  return(
+    <div className="container">
+      <LifeCycleScreen/>
+    </div>
+  ) 
 }
 
 export default App;
