@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 class AuthScreen extends React.Component {
   state = {
@@ -9,7 +10,9 @@ class AuthScreen extends React.Component {
     username: "",
     password: "",
     passwordConfirm: "",
-    activeEditIndex: "x"
+    curentUser: "",
+    isLoged : false,
+    activeEditIndex: null
   };
 
   render() {
@@ -55,10 +58,12 @@ class AuthScreen extends React.Component {
     const login = () => {
       let arr = this.state.user;
       for (let i = 0; i < arr.length; i++) {
+        alert(this.state.user.username)
         if (
-          this.state.username == arr[i][0] &&
-          this.state.password == arr[i][1]
+          this.state.username == arr.username &&
+          this.state.password == arr.password
         ) {
+          this.setState({curentUser:arr.username,isLoged:true})
           clearInput();
           return alert("Login Berhasil");
         }
@@ -110,7 +115,10 @@ class AuthScreen extends React.Component {
             <td>{idx + 1}</td>
             {updateUser(idx)}
             <td>
-              <input className="btn btn-success" type="button" value="edit" onClick={()=>{this.setState({activeEditIndex : idx})}}></input>
+                {/* <input className="btn btn-primary" type="button" value="Login" onClick={()=>{this.setState({activeEditIndex : idx})}}></input> */}
+              <Link to={"/profile/"+val.username}>
+                <input className="btn btn-primary" type="button" value="Login"></input>
+              </Link>
             </td>
             <td>
               <input
@@ -189,7 +197,7 @@ class AuthScreen extends React.Component {
             padding: "10px",
           }}
         >
-          {/* <div>Login</div>
+          <div>Login</div>
           <div></div>
           <div className="form-group">
             <input
@@ -216,17 +224,17 @@ class AuthScreen extends React.Component {
               value="Login"
               onClick={login}
             />
-          </div> */}
-          <table className="table">
+          </div>
+          {/* <table className="table">
           <thead>
             <th>No</th>
             <th>Username</th>
-            <th>Action</th>
+            <th colSpan="2" >Action</th>
           </thead>
           <tbody>
             {renderTable()}
           </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     );

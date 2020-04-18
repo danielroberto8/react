@@ -1,0 +1,24 @@
+{
+  "posts": [],
+  "comments": [],
+  "users": [
+    {
+      "id": 0,
+      "username": "admin",
+      "password": "admin",
+      "fullname": "Admin Tersayang"
+    },
+    {
+      "username": "john",
+      "password": "1234",
+      "fullname": "john cena",
+      "id": 1
+    },
+    {
+      "username": "marksman",
+      "password": "1234",
+      "fullname": "Irithel",
+      "id": 2
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 class InputScreen extends React.Component {
   state = {
@@ -28,6 +29,9 @@ class InputScreen extends React.Component {
             type="text"
             placeholder="masukkan nama"
           ></input>
+           <Link to={"/profile/"+this.state.username}>
+            <input className="btn" type="button" value="Click me!"/>
+           </Link>
           <br></br>
           <input
             onChange={(e) => {
