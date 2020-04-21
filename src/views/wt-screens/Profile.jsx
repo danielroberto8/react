@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../constants/API";
+import { connect } from "react-redux";
+import { userInputHandler } from "../../redux/actions";
 
 class Profile extends React.Component {
   state = {
@@ -35,11 +37,24 @@ class Profile extends React.Component {
         <h3>Id : {id}</h3>
         <h3>Full Name : {fullname}</h3>
         <Link to={"/"}>
-          <input type="button" className="btn btn-danger" value="Keluar" />
+          <input
+            type="button"
+            className="btn btn-danger"
+            value="Keluar"
+            onClick={() => {
+              this.props.userInputHandler("");
+            }}
+          />
         </Link>
       </div>
     );
   }
 }
 
-export default Profile;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, { userInputHandler })(Profile);

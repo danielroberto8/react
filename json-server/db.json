@@ -19,6 +19,30 @@
       "password": "1234",
       "fullname": "Irithel",
       "id": 2
+    },
+    {
+      "username": "aa",
+      "password": "aa",
+      "fullname": "aa",
+      "id": 3
+    },
+    {
+      "username": "s",
+      "password": "1",
+      "fullname": "s",
+      "id": 4
+    },
+    {
+      "username": "abangbiru",
+      "password": "XABIRU",
+      "fullname": "xabiru oshe al-hakim",
+      "id": 5
+    },
+    {
+      "username": "danielicious",
+      "password": "daniel",
+      "fullname": "Daniel Roberto",
+      "id": 6
     }
   ]
 }

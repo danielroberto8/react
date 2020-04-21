@@ -20,6 +20,7 @@ import ProfileScreen from "./views/screen/ProfileScreen";
 import Login from "./views/wt-screens/Login";
 import Register from "./views/wt-screens/Register";
 import Profile from "./views/wt-screens/Profile";
+import TodoReduxScreen from "./views/screen/TodoReduxScreen";
 
 function App() {
   // let arrProduct = [
@@ -97,13 +98,14 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <Switch>
-        {/* <Route exact path="/" component={HomeScreen} />
         <Route exact path="/login" component={AuthScreen} />
         <Route exact path="/counter" component={CounterScreen} />
         <Route exact path="/input" component={InputScreen} />
         <Route exact path="/lifecycle" component={LifeCycleScreen} />
-        <Route exact path="/profile/:username" component={ProfileScreen} /> */}
+        {/* <Route exact path="/profile/:username" component={ProfileScreen} /> */}
+        <Route exact path="/todo" component={TodoReduxScreen} />
         <Route exact path="/" component={Login} />
         <Route exact path="/daftar" component={Register} />
         <Route exact path="/profile/:user" component={Profile} />

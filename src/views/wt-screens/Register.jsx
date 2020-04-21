@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../constants/API";
+import { Spinner } from "reactstrap";
+import swal from "sweetalert";
 
 class Register extends React.Component {
   state = {
@@ -10,6 +12,7 @@ class Register extends React.Component {
     usernameRegis: "",
     passwordRegis: "",
     passwordConfirm: "",
+    isLoading: false,
   };
 
   componentDidMount = () => {
@@ -27,15 +30,6 @@ class Register extends React.Component {
     this.setState({ [field]: e.target.value });
   };
 
-  checkUser = (arr, username) => {
-    for (let i = 0; i < arr.length; i++) {
-      if (username == arr[i].username) {
-        return false;
-      }
-    }
-    return true;
-  };
-
   checkPassword = (pass, passconfirm) => {
     if (pass == passconfirm) {
       return true;
@@ -45,7 +39,6 @@ class Register extends React.Component {
 
   register = () => {
     const {
-      users,
       fullName,
       usernameRegis,
       passwordRegis,
@@ -57,21 +50,33 @@ class Register extends React.Component {
       passwordRegis == "" ||
       passwordConfirm == ""
     ) {
-      return alert("Form tidak boleh ada yang kosong");
-    }
-    if (!this.checkUser(users, usernameRegis)) {
-      return alert(`Oops...\nUsername ${usernameRegis} sudah ada :(`);
+      return swal("Oops...", "Form tidak boleh ada yang kosong hyung", "error");
     }
     if (!this.checkPassword(passwordRegis, passwordConfirm)) {
-      return alert(`Password tidak cucok`);
+      return swal("Oops...", "Password tidak cucok", "error");
     }
-    Axios.post(`${API_URL}/users`, {
-      username: usernameRegis,
-      password: passwordRegis,
-      fullname: fullName,
+
+    Axios.get(`${API_URL}/users`, {
+      params: {
+        username: usernameRegis,
+      },
     })
       .then((res) => {
-        alert("Pendaftaran berhasil\nSilahkan melakukan login");
+        if (res.data.length == 0) {
+          Axios.post(`${API_URL}/users`, {
+            username: usernameRegis,
+            password: passwordRegis,
+            fullname: fullName,
+          })
+            .then((res) => {
+              swal("Yeayyyy", "Pendaftaran berhasil", "success");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          swal("Oops...", "username sudah dipakai", "error");
+        }
       })
       .catch((err) => {
         console.log(err);

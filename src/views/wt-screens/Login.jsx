@@ -2,25 +2,16 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../constants/API";
+import swal from "sweetalert";
+import { connect } from "react-redux";
+import { userInputHandler } from "../../redux/actions";
 
 class Login extends React.Component {
   state = {
-    users: [],
     usernameLogin: "",
     passwordLogin: "",
     currentUser: "",
     isLogged: false,
-  };
-
-  componentDidMount = () => {
-    Axios.get(`${API_URL}/users`)
-      .then((res) => {
-        this.setState({ users: res.data });
-      })
-      .catch((err) => {
-        alert("Koneksi error");
-        console.log(err);
-      });
   };
 
   inputHandler = (e, field) => {
@@ -28,18 +19,33 @@ class Login extends React.Component {
   };
 
   login = () => {
-    const { usernameLogin, passwordLogin, users } = this.state;
-    for (let i = 0; i < users.length; i++) {
-      if (
-        usernameLogin == users[i].username &&
-        passwordLogin == users[i].password
-      ) {
-        this.setState({ isLogged: true });
-        this.setState({ currentUser: users[i].username });
-        return alert("login berhasil");
-      }
-    }
-    return alert("login gagal");
+    const { usernameLogin, passwordLogin } = this.state;
+
+    Axios.get(`${API_URL}/users`, {
+      params: {
+        username: usernameLogin,
+        password: passwordLogin,
+      },
+    })
+      .then((res) => {
+        if (res.data.length == 1) {
+          this.setState({
+            isLogged: true,
+            currentUser: usernameLogin,
+          });
+          this.props.userInputHandler(this.state.currentUser);
+          return swal(
+            `Halo ${this.state.currentUser}`,
+            "login berhasil",
+            "success"
+          );
+        } else {
+          return swal("Oops...", "login gagal", "error");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   render() {
     const { currentUser, isLogged } = this.state;
@@ -90,4 +96,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, { userInputHandler })(Login);
