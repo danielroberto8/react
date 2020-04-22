@@ -6,43 +6,64 @@
       "id": 0,
       "username": "admin",
       "password": "admin",
-      "fullname": "Admin Tersayang"
+      "fullname": "Admin Tersayang",
+      "role": "admin"
     },
     {
       "username": "john",
       "password": "1234",
       "fullname": "john cena",
-      "id": 1
+      "id": 1,
+      "role": "user"
     },
     {
       "username": "marksman",
       "password": "1234",
       "fullname": "Irithel",
-      "id": 2
+      "id": 2,
+      "role": "user"
     },
     {
       "username": "aa",
       "password": "aa",
       "fullname": "aa",
-      "id": 3
+      "id": 3,
+      "role": "user"
     },
     {
       "username": "s",
       "password": "1",
       "fullname": "s",
-      "id": 4
+      "id": 4,
+      "role": "user"
     },
     {
       "username": "abangbiru",
       "password": "XABIRU",
       "fullname": "xabiru oshe al-hakim",
-      "id": 5
+      "id": 5,
+      "role": "user"
     },
     {
       "username": "danielicious",
       "password": "daniel",
       "fullname": "Daniel Roberto",
-      "id": 6
+      "id": 6,
+      "role": "user"
+    },
+    {
+      "username": "witcher",
+      "password": "ciri",
+      "fullname": "Geralt of Rivia",
+      "id": 7,
+      "role": "user"
+    },
+    {
+      "username": "johny",
+      "fullname": "Johny Sins",
+      "password": "12345",
+      "role": "user",
+      "id": 8
     }
   ]
 }

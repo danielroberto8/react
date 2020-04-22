@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../constants/API";
 import { connect } from "react-redux";
-import { userInputHandler } from "../../redux/actions";
+import { logoutHandler } from "../../redux/actions";
 
 class Profile extends React.Component {
   state = {
@@ -42,7 +42,7 @@ class Profile extends React.Component {
             className="btn btn-danger"
             value="Keluar"
             onClick={() => {
-              this.props.userInputHandler("");
+              this.props.logoutHandler(false);
             }}
           />
         </Link>
@@ -57,4 +57,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { userInputHandler })(Profile);
+export default connect(mapStateToProps, { logoutHandler })(Profile);

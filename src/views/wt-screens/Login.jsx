@@ -1,17 +1,13 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
-import Axios from "axios";
-import { API_URL } from "../../constants/API";
 import swal from "sweetalert";
 import { connect } from "react-redux";
-import { userInputHandler } from "../../redux/actions";
+import { userInputHandler, loginHandler } from "../../redux/actions";
 
 class Login extends React.Component {
   state = {
     usernameLogin: "",
     passwordLogin: "",
-    currentUser: "",
-    isLogged: false,
   };
 
   inputHandler = (e, field) => {
@@ -21,42 +17,58 @@ class Login extends React.Component {
   login = () => {
     const { usernameLogin, passwordLogin } = this.state;
 
-    Axios.get(`${API_URL}/users`, {
-      params: {
-        username: usernameLogin,
-        password: passwordLogin,
-      },
-    })
-      .then((res) => {
-        if (res.data.length == 1) {
-          this.setState({
-            isLogged: true,
-            currentUser: usernameLogin,
-          });
-          this.props.userInputHandler(this.state.currentUser);
-          return swal(
-            `Halo ${this.state.currentUser}`,
-            "login berhasil",
-            "success"
-          );
-        } else {
-          return swal("Oops...", "login gagal", "error");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (usernameLogin == "") {
+      return swal("Oops...", "username tidak boleh kosong", "warning");
+    }
+
+    if (passwordLogin == "") {
+      return swal("Oops...", "password tidak boleh kosong", "warning");
+    }
+
+    const userData = {
+      username: usernameLogin,
+      password: passwordLogin,
+    };
+
+    this.props.loginHandler(userData);
+
+    // Axios.get(`${API_URL}/users`, {
+    //   params: {
+    //     username: usernameLogin,
+    //     password: passwordLogin,
+    //   },
+    // })
+    //   .then((res) => {
+    //     if (res.data.length == 1) {
+    //       this.setState({
+    //         isLogged: true,
+    //         currentUser: usernameLogin,
+    //       });
+    //       this.props.userInputHandler(this.state.currentUser);
+    //       return swal(
+    //         `Halo ${this.state.currentUser}`,
+    //         "login berhasil",
+    //         "success"
+    //       );
+    //     } else {
+    //       return swal("Oops...", "login gagal", "error");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
   render() {
-    const { currentUser, isLogged } = this.state;
+    const { username, isLogged } = this.props.user;
 
     if (!isLogged) {
       return (
         <div
           className="App container p-8"
-          style={{ width: "50%", marginTop: "10%" }}
+          style={{ width: "50%", marginTop: "7%" }}
         >
           <h2 className="text-center">Welcome</h2>
+          <p>{this.props.user.username}</p>
           <label for="usernameLogin">username</label>
           <input
             type="text"
@@ -91,7 +103,7 @@ class Login extends React.Component {
         </div>
       );
     } else {
-      return <Redirect to={`/profile/${currentUser}`} />;
+      return <Redirect to={`/profile/${username}`} />;
     }
   }
 }
@@ -102,4 +114,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { userInputHandler })(Login);
+export default connect(mapStateToProps, { userInputHandler, loginHandler })(
+  Login
+);

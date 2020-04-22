@@ -11,7 +11,7 @@ class Navbar extends React.Component {
       >
         <Link to="/">Home</Link>
         <Link to="/counter">Counter</Link>
-        <Link to="/login">Register | Login</Link>
+        <Link to="/login">Login</Link>
         {this.props.username}
       </div>
     );
