@@ -3,6 +3,9 @@ import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import { connect } from "react-redux";
 import { userInputHandler, loginHandler } from "../../redux/actions";
+import Cookie from "universal-cookie";
+
+const cookieObject = new Cookie();
 
 class Login extends React.Component {
   state = {
@@ -58,6 +61,19 @@ class Login extends React.Component {
     //     console.log(err);
     //   });
   };
+
+  componentDidMount() {
+    if (!this.props.user.isLogged) {
+      cookieObject.remove("authData");
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.user.id >= 0) {
+      cookieObject.set("authData", JSON.stringify(this.props.user));
+    }
+  }
+
   render() {
     const { username, isLogged } = this.props.user;
 

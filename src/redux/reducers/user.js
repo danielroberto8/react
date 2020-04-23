@@ -1,7 +1,7 @@
 import swal from "sweetalert";
 
 const init_state = {
-  id: 0,
+  id: "",
   username: "",
   fullname: "",
   role: "",

@@ -78,3 +78,30 @@ export const registerHandler = (userData) => {
       });
   };
 };
+
+export const userKeepLogin = (userData) => {
+  return (dispatch) => {
+    Axios.get(`${API_URL}/users`, {
+      params: {
+        id: userData.id,
+      },
+    })
+      .then((res) => {
+        if (res.data.length > 0) {
+          dispatch({
+            type: "ON_LOGIN_SUCCESS",
+            payload: res.data[0],
+          });
+        } else {
+          alert("masuk");
+          dispatch({
+            type: "ON_LOGIN_FAILED",
+            payload: "username atau password salah",
+          });
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+};

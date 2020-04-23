@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import Cookie from "universal-cookie";
+import { userKeepLogin } from "./redux/actions";
 import "./App.css";
 import "./bootstrap.css";
 import Handmaid from "./views/components/handmaid.png";
@@ -75,6 +77,14 @@ class App extends React.Component {
     });
   };
 
+  componentDidMount() {
+    let cookieResult = cookieObject.get("authData");
+    console.log(cookieResult);
+    if (cookieResult) {
+      this.props.userKeepLogin(cookieResult);
+    }
+  }
+
   render = () => {
     return (
       <>
@@ -82,9 +92,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/counter" component={CounterScreen} />
           <Route exact path="/input" component={InputScreen} />
-          <Route exact path="/" component={LifeCycleScreen} />
           {/* <Route exact path="/profile/:username" component={ProfileScreen} /> */}
-          <Route exact path="/todo" component={TodoReduxScreen} />
+          <Route exact path="/" component={TodoReduxScreen} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/daftar" component={Register} />
           <Route exact path="/profile/:user" component={Profile} />
@@ -95,7 +104,13 @@ class App extends React.Component {
   };
 }
 
-export default withRouter(App);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, { userKeepLogin })(withRouter(App));
 
 // function App() {
 //   // let arrProduct = [
