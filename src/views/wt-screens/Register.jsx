@@ -16,17 +16,6 @@ class Register extends React.Component {
     isLoading: false,
   };
 
-  componentDidMount = () => {
-    Axios.get(`${API_URL}/users`)
-      .then((res) => {
-        this.setState({ users: res.data });
-      })
-      .catch((err) => {
-        alert("Koneksi error");
-        console.log(err);
-      });
-  };
-
   inputHandler = (e, field) => {
     this.setState({ [field]: e.target.value });
   };
@@ -69,32 +58,6 @@ class Register extends React.Component {
     };
 
     this.props.registerHandler(userData);
-    // Axios.get(`${API_URL}/users`, {
-    //   params: {
-    //     username: usernameRegis,
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (res.data.length == 0) {
-    //       Axios.post(`${API_URL}/users`, {
-    //         username: usernameRegis,
-    //         password: passwordRegis,
-    //         fullname: fullName,
-    //         role: "user",
-    //       })
-    //         .then((res) => {
-    //           swal("Yeayyyy", "Pendaftaran berhasil", "success");
-    //         })
-    //         .catch((err) => {
-    //           console.log(err);
-    //         });
-    //     } else {
-    //       swal("Oops...", "username sudah dipakai", "error");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   render() {

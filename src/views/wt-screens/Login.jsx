@@ -34,32 +34,6 @@ class Login extends React.Component {
     };
 
     this.props.loginHandler(userData);
-
-    // Axios.get(`${API_URL}/users`, {
-    //   params: {
-    //     username: usernameLogin,
-    //     password: passwordLogin,
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (res.data.length == 1) {
-    //       this.setState({
-    //         isLogged: true,
-    //         currentUser: usernameLogin,
-    //       });
-    //       this.props.userInputHandler(this.state.currentUser);
-    //       return swal(
-    //         `Halo ${this.state.currentUser}`,
-    //         "login berhasil",
-    //         "success"
-    //       );
-    //     } else {
-    //       return swal("Oops...", "login gagal", "error");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   componentDidMount() {
